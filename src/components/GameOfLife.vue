@@ -1,6 +1,8 @@
 <template>
   <div>
-    <grid />
+    <grid 
+      :toggle-cell="toggleCell"
+    />
     <div>
       <base-button
         :name="isPaused ? 'Play' : 'Pause'"
@@ -8,7 +10,7 @@
       />
       <base-button
         name="Next"
-        :click-callback="doStuff"
+        :click-callback="function() {}"
       />
       <base-button
         name="Random"
@@ -16,7 +18,7 @@
       />
       <base-button
         name="Clear"
-        :click-callback="doStuff"
+        :click-callback="function() {}"
       />
       <input
         class="rows-count"
@@ -66,6 +68,9 @@
       },
       generateRandomAliveCellsIndex: function () {
         this.aliveCellsIndexed = getRandomIndex(this.rowsCount, this.columnsCount);
+      },
+      toggleCell: function (row, column) {
+        window.console.log(row, column)
       }
     }
   }

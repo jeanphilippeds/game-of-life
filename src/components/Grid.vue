@@ -4,6 +4,7 @@
         v-for="index in cellsCount"
         :key="index"
         :is-alive="false"
+        :click-callback="() => handleCellClick(index)"
     />
   </div>
 </template>
@@ -19,6 +20,9 @@
     components: {
         Cell
     },
+    props: {
+      toggleCell: Function
+    },
     computed: {
         rowsCount: function() {
             return rowsCount;
@@ -30,19 +34,30 @@
             return this.rowsCount * this.columnsCount;
         }
     },
+    methods: {
+        columnIndex: function(index) {
+            return (index - 1) % this.columnsCount;
+        },
+        rowIndex: function(index) {
+            return Math.floor((index - 1)/this.columnsCount);            
+        },
+        handleCellClick: function(index) {
+            this.toggleCell(this.rowIndex(index), this.columnIndex(index))
+        }
+    },
   }
 </script>
 
 <style>
-.grid__container {
-  width: 90vw;
-  height: 30vw;
-  margin: auto;
-  background-color: black;
-  border: black solid 1px;
-  display: grid;
-  grid-gap: 1px;
-  grid-template-columns: repeat(var(--columns), 1fr);
-  grid-template-rows: repeat(var(--rows), 1fr);
-}
+    .grid__container {
+        width: 90vw;
+        height: 30vw;
+        margin: auto;
+        background-color: black;
+        border: black solid 1px;
+        display: grid;
+        grid-gap: 1px;
+        grid-template-columns: repeat(var(--columns), 1fr);
+        grid-template-rows: repeat(var(--rows), 1fr);
+    }
 </style>

@@ -1,10 +1,13 @@
 <template>
-  <div class="cell"></div>
+  <div class="cell" @click="clickCallback"></div>
 </template>
 
 <script>
   export default {
     name: 'Cell',
+    props: {
+      clickCallback: Function
+    }
   }
 </script>
 
