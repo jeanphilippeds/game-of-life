@@ -15,7 +15,7 @@
   const gridRatio = 3
 
   export default {
-    name: 'grid',
+    name: 'Grid',
     components: {
         Cell
     },

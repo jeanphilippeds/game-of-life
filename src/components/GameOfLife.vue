@@ -13,7 +13,7 @@
   import BaseButton from './BaseButton.vue'
 
   export default {
-    name: 'gameOfLife',
+    name: 'GameOfLife',
     components: {
       Grid,
       BaseButton
