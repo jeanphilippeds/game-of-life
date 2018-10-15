@@ -2,11 +2,11 @@ import {getIndex, getAliveNeighboursCount} from './grid-helper'
 
 const PhysicLaws = {}
 
-PhysicLaws.tick = (iMax, jMax, aliveCellsIndexed) => {
+PhysicLaws.tick = (rowsCount, columnsCount, aliveCellsIndexed) => {
   const newAliveCellsIndexed = {}
 
-  for (var i=0; i < iMax; i++) {
-    for (var j=0; j < jMax; j++) {
+  for (var i=0; i < rowsCount; i++) {
+    for (var j=0; j < columnsCount; j++) {
       const key = getIndex(i, j)
       const isAliveCell = aliveCellsIndexed[key]
       const aliveNeighboursCount = getAliveNeighboursCount(i, j)
