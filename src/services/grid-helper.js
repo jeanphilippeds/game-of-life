@@ -1,28 +1,22 @@
-const GridHelper = {}
-
-GridHelper.getIndex = (row, column) => {
-    return `R${row}C${column}`
-  }
-  
-  GridHelper.getNeighbours = (row, column) => {
+const getNeighbours = (row, column) => {
     return [
-      GridHelper.getIndex(row - 1, column - 1),
-      GridHelper.getIndex(row - 1, column),
-      GridHelper.getIndex(row - 1, column + 1),
-      GridHelper.getIndex(row, column - 1),
-      GridHelper.getIndex(row, column + 1),
-      GridHelper.getIndex(row + 1, column - 1),
-      GridHelper.getIndex(row + 1, column),
-      GridHelper.getIndex(row + 1, column + 1)
+        getIndex(row - 1, column - 1),
+        getIndex(row - 1, column),
+        getIndex(row - 1, column + 1),
+        getIndex(row, column - 1),
+        getIndex(row, column + 1),
+        getIndex(row + 1, column - 1),
+        getIndex(row + 1, column),
+        getIndex(row + 1, column + 1)
     ]
-  }
-  
-  GridHelper.getAliveNeighboursCount = (row, column, aliveCellsIndex) => {
-    const neighbours = GridHelper.getNeighbours(row, column)
-  
+}
+export const getIndex = (row, column) => {
+    return `R${row}C${column}`
+}
+
+export const getAliveNeighboursCount = (row, column, aliveCellsIndex) => {
+    const neighbours = getNeighbours(row, column)
+
     return neighbours.filter(neighbourIndex => aliveCellsIndex[neighbourIndex])
-      .length
-  }
-  
-  export default GridHelper
-  
+        .length
+}
