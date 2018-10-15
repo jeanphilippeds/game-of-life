@@ -1,7 +1,8 @@
 <template>
   <div>
     <grid />
-    <play-button
+    <base-button
+      :name="isPaused ? 'Play' : 'Pause'"
       :click-callback="playGame"
     />
   </div>
@@ -9,15 +10,22 @@
 
 <script>
   import Grid from './Grid.vue'
-  import PlayButton from './PlayButton.vue'
+  import BaseButton from './buttons/BaseButton.vue'
+
   export default {
     name: 'gameOfLife',
     components: {
       Grid,
-      PlayButton
+      BaseButton
+    },
+    data: function() {
+      return {
+        isPaused: true
+      }
     },
     methods: {
       playGame: function () {
+        this.isPaused = !this.isPaused
         window.console.log('Hello')
       }
     }
