@@ -21,7 +21,7 @@
       />
       <base-button
         name="Clear"
-        :click-callback="() => {}"
+        :click-callback="clearState"
       />
       <input
         class="rows-count"
@@ -29,7 +29,7 @@
         v-model="rowsCount"
         placeholder="Number of rows"
         min="30"
-        max="1000" />
+        max="100" />
     </div>
     <div>
       <range
@@ -74,6 +74,9 @@
       },
       changeSpeed: function (value) {
         this.speed = value;
+      },
+      clearState: function () {
+        this.aliveCellsIndexed = {}
       },
       setNextState: function () {
         this.aliveCellsIndexed = tick(this.rowsCount, this.columnsCount, this.aliveCellsIndexed);
