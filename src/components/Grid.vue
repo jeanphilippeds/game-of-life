@@ -3,7 +3,7 @@
     <cell
         v-for="index in cellsCount"
         :key="index"
-        :is-alive="false"
+        :is-alive="isCellAliveFromIndex(index)"
         :click-callback="() => handleCellClick(index)"
     />
   </div>
@@ -18,15 +18,19 @@
         Cell
     },
     props: {
-      toggleCell: Function,
-      rowsCount: {
-          type: Number,
-          required: true
-      },
-      columnsCount: {
-          type: Number,
-          required: true
-      }
+        toggleCell: Function,
+        rowsCount: {
+            type: Number,
+            required: true
+        },
+        columnsCount: {
+            type: Number,
+            required: true
+        },
+        isCellAlive: {
+            type: Function,
+            required: true
+        }
     },
     computed: {
         cellsCount: function() {
@@ -42,21 +46,24 @@
         },
         handleCellClick: function(index) {
             this.toggleCell(this.rowIndex(index), this.columnIndex(index))
+        },
+        isCellAliveFromIndex: function(index) {
+            return this.isCellAlive(this.rowIndex(index), this.columnIndex(index))
         }
     },
   }
 </script>
 
 <style>
-    .grid__container {
-        width: 90vw;
-        height: 30vw;
-        margin: auto;
-        background-color: black;
-        border: black solid 1px;
-        display: grid;
-        grid-gap: 1px;
-        grid-template-columns: repeat(var(--columns), 1fr);
-        grid-template-rows: repeat(var(--rows), 1fr);
-    }
+.grid__container {
+  width: 90vw;
+  height: 30vw;
+  margin: auto;
+  background-color: black;
+  border: black solid 1px;
+  display: grid;
+  grid-gap: 1px;
+  grid-template-columns: repeat(var(--columns), 1fr);
+  grid-template-rows: repeat(var(--rows), 1fr);
+}
 </style>

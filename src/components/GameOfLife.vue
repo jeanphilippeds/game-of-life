@@ -3,7 +3,9 @@
     <grid
       :rows-count="rowsCount"
       :columns-count="columnsCount"
-      :toggle-cell="toggleCell">
+      :toggle-cell="toggleCell"
+      :is-cell-alive="isCellAlive"
+    >
     </grid>
 
     <div>
@@ -82,7 +84,7 @@
         this.aliveCellsIndexed = tick(this.rowsCount, this.columnsCount, this.aliveCellsIndexed)
       },
       generateRandomAliveCellsIndex: function () {
-        this.aliveCellsIndexed = getRandomIndex(this.rowsCount, this.columnsCount);
+        this.aliveCellsIndexed = getRandomIndex(this.rowsCount, this.columnsCount)
       },
       toggleCell: function (row, column) {
         const index = getIndex(row, column)
@@ -91,13 +93,16 @@
         } else {
           this.aliveCellsIndexed[index] = true
         }
+      },
+      isCellAlive: function (row, column) {
+        return this.aliveCellsIndexed[getIndex(row, column)]
       }
     }
   }
 </script>
 
 <style>
-  .rows-count {
-    width: 100px;
-  }
+.rows-count {
+  width: 100px;
+}
 </style>
