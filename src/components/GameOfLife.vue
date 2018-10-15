@@ -39,6 +39,7 @@
   import Grid from './Grid.vue'
   import BaseButton from './BaseButton.vue'
   import Range from './Range.vue'
+  import { getRandomIndex } from '../services/grid-helper.js'
 
   export default {
     name: 'GameOfLife',
@@ -50,22 +51,28 @@
     data: function() {
       return {
         isPaused: true,
-        speed: 0
+        speed: 0,
+        aliveCellsIndexed: {},
+        rowsCount: 30,
+        columnsCount: 90
       }
     },
     methods: {
       playGame: function () {
-        this.isPaused = !this.isPaused
+        this.isPaused = !this.isPaused;
       },
       changeSpeed: function (value) {
-        this.speed = value
+        this.speed = value;
+      },
+      generateRandomAliveCellsIndex: function () {
+        this.aliveCellsIndexed = getRandomIndex(this.rowsCount, this.columnsCount);
       }
     }
   }
 </script>
 
 <style>
-  .rows-count {
-    width: 100px;
-  }
+.rows-count {
+  width: 100px;
+}
 </style>
