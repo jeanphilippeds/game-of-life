@@ -18,6 +18,14 @@
         name="Clear"
         :click-callback="doStuff"
       />
+      <input
+        class="rows-count"
+        type="number"
+        id="rows"
+        name="rows"
+        placeholder="Number of rows"
+        min="30"
+        max="1000" />
     </div>
     <div>
       <range
@@ -57,4 +65,7 @@
 </script>
 
 <style>
+  .rows-count {
+    width: 100px;
+  }
 </style>
