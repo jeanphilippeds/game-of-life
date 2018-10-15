@@ -11,21 +11,22 @@
 <script>
   import Cell from './Cell.vue'
 
-  const rowsCount = 30
-  const gridRatio = 3
-
   export default {
     name: 'Grid',
     components: {
         Cell
     },
+    props: {
+        rowsCount: {
+            type: String,
+            required: true
+        },
+        columnsCount: {
+            type: String,
+            required: true
+        }
+    },
     computed: {
-        rowsCount: function() {
-            return rowsCount;
-        },
-        columnsCount: function() {
-            return this.rowsCount * gridRatio;
-        },
         cellsCount: function() {
             return this.rowsCount * this.columnsCount;
         }

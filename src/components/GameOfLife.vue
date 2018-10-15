@@ -1,6 +1,9 @@
 <template>
   <div>
-    <grid />
+    <grid
+      :rows-count="rowsCount"
+      :columns-count="columnsCount">
+    </grid>
     <div>
       <base-button
         :name="isPaused ? 'Play' : 'Pause'"
@@ -21,8 +24,7 @@
       <input
         class="rows-count"
         type="number"
-        id="rows"
-        name="rows"
+        v-model="rowsCount"
         placeholder="Number of rows"
         min="30"
         max="1000" />
@@ -42,6 +44,8 @@
   import { getRandomIndex } from '../services/grid-helper.js'
   import { tick } from '../services/grid-helper.js'
 
+  const gridRatio = 3
+
   export default {
     name: 'GameOfLife',
     components: {
@@ -54,8 +58,12 @@
         isPaused: true,
         speed: 0,
         aliveCellsIndexed: {},
-        rowsCount: 30,
-        columnsCount: 90
+        rowsCount: 30
+      }
+    },
+    computed: {
+      columnsCount: function() {
+        return this.rowsCount * gridRatio
       }
     },
     methods: {
@@ -76,7 +84,7 @@
 </script>
 
 <style>
-.rows-count {
-  width: 100px;
-}
+  .rows-count {
+    width: 100px;
+  }
 </style>
