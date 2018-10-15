@@ -7,16 +7,20 @@ PhysicLaws.tick = function(previousGridState) {
   return previousGridState
 }
 
+PhysicLaws.getIndex = (row, column) => {
+  return `R${row}C${column}`
+}
+
 PhysicLaws.getNeighbours = (row, column) => {
   return [
-    `R${row - 1}C${column - 1}`,
-    `R${row - 1}C${column}`,
-    `R${row - 1}C${column + 1}`,
-    `R${row}C${column - 1}`,
-    `R${row}C${column + 1}`,
-    `R${row + 1}C${column - 1}`,
-    `R${row + 1}C${column}`,
-    `R${row + 1}C${column + 1}`
+    PhysicLaws.getIndex(row - 1, column - 1),
+    PhysicLaws.getIndex(row - 1, column),
+    PhysicLaws.getIndex(row - 1, column + 1),
+    PhysicLaws.getIndex(row, column - 1),
+    PhysicLaws.getIndex(row, column + 1),
+    PhysicLaws.getIndex(row + 1, column - 1),
+    PhysicLaws.getIndex(row + 1, column),
+    PhysicLaws.getIndex(row + 1, column + 1)
   ]
 }
 
