@@ -1,6 +1,5 @@
 const PhysicLaws = {}
 
-
 PhysicLaws.tick = (iMax, jMax, aliveCellsIndexed) => {
   const newAliveCellsIndexed = {}
 
