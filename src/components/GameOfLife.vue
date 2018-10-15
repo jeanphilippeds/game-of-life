@@ -26,7 +26,7 @@
       <input
         class="rows-count"
         type="number"
-        v-model="rowsCount"
+        v-model.number="rowsCount"
         placeholder="Number of rows"
         min="30"
         max="100" />
@@ -79,14 +79,18 @@
         this.aliveCellsIndexed = {}
       },
       setNextState: function () {
-        this.aliveCellsIndexed = tick(this.rowsCount, this.columnsCount, this.aliveCellsIndexed);
+        this.aliveCellsIndexed = tick(this.rowsCount, this.columnsCount, this.aliveCellsIndexed)
       },
       generateRandomAliveCellsIndex: function () {
         this.aliveCellsIndexed = getRandomIndex(this.rowsCount, this.columnsCount);
       },
       toggleCell: function (row, column) {
         const index = getIndex(row, column)
-        this.aliveCellsIndexed[index] = !this.aliveCellsIndexed[index]
+        if (this.aliveCellsIndexed.hasOwnProperty(index)) {
+          delete this.aliveCellsIndexed[index]
+        } else {
+          this.aliveCellsIndexed[index] = true
+        }
       }
     }
   }
