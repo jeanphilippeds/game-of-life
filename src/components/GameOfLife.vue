@@ -19,7 +19,7 @@
       />
       <base-button
         name="Clear"
-        :click-callback="() => {}"
+        :click-callback="clearState"
       />
       <input
         class="rows-count"
@@ -72,6 +72,9 @@
       },
       changeSpeed: function (value) {
         this.speed = value;
+      },
+      clearState: function () {
+        this.aliveCellsIndexed = {}
       },
       setNextState: function () {
         this.aliveCellsIndexed = tick(this.rowsCount, this.columnsCount, this.aliveCellsIndexed);
