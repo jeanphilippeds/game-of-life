@@ -1,8 +1,11 @@
 <template>
   <div>
-    <grid 
+    <grid
+      :rows-count="rowsCount"
+      :columns-count="columnsCount">
       :toggle-cell="toggleCell"
-    />
+    </grid>
+
     <div>
       <base-button
         :name="isPaused ? 'Play' : 'Pause'"
@@ -10,7 +13,7 @@
       />
       <base-button
         name="Next"
-        :click-callback="function() {}"
+        :click-callback="setNextState"
       />
       <base-button
         name="Random"
@@ -18,13 +21,12 @@
       />
       <base-button
         name="Clear"
-        :click-callback="function() {}"
+        :click-callback="() => {}"
       />
       <input
         class="rows-count"
         type="number"
-        id="rows"
-        name="rows"
+        v-model="rowsCount"
         placeholder="Number of rows"
         min="30"
         max="1000" />
@@ -42,6 +44,9 @@
   import BaseButton from './BaseButton.vue'
   import Range from './Range.vue'
   import { getRandomIndex } from '../services/grid-helper.js'
+  import { tick } from '../services/physic-laws.js'
+
+  const gridRatio = 3
 
   export default {
     name: 'GameOfLife',
@@ -55,8 +60,12 @@
         isPaused: true,
         speed: 0,
         aliveCellsIndexed: {},
-        rowsCount: 30,
-        columnsCount: 90
+        rowsCount: 30
+      }
+    },
+    computed: {
+      columnsCount: function() {
+        return this.rowsCount * gridRatio
       }
     },
     methods: {
@@ -65,6 +74,9 @@
       },
       changeSpeed: function (value) {
         this.speed = value;
+      },
+      setNextState: function () {
+        this.aliveCellsIndexed = tick(this.rowsCount, this.columnsCount, this.aliveCellsIndexed);
       },
       generateRandomAliveCellsIndex: function () {
         this.aliveCellsIndexed = getRandomIndex(this.rowsCount, this.columnsCount);
@@ -77,7 +89,7 @@
 </script>
 
 <style>
-.rows-count {
-  width: 100px;
-}
+  .rows-count {
+    width: 100px;
+  }
 </style>
