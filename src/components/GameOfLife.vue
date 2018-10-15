@@ -27,7 +27,7 @@
         v-model="rowsCount"
         placeholder="Number of rows"
         min="30"
-        max="1000" />
+        max="100" />
     </div>
     <div>
       <range
