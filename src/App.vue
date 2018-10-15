@@ -1,16 +1,16 @@
 <template>
   <div id="app">
     <img class="vue-logo" alt="Vue logo" src="./assets/logo.png">
-    <grid/>
+    <game-of-life />
   </div>
 </template>
 
 <script>
-  import Grid from './components/Grid.vue'
+  import GameOfLife from './components/GameOfLife'
   export default {
     name: 'app',
     components: {
-      Grid
+      GameOfLife
     }
   }
 </script>
