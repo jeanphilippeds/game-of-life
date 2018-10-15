@@ -8,7 +8,7 @@
       />
       <base-button
         name="Next"
-        :click-callback="doStuff"
+        :click-callback="() => {}"
       />
       <base-button
         name="Random"
@@ -16,7 +16,7 @@
       />
       <base-button
         name="Clear"
-        :click-callback="doStuff"
+        :click-callback="() => {}"
       />
       <input
         class="rows-count"
