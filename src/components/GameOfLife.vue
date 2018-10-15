@@ -10,7 +10,7 @@
 
 <script>
   import Grid from './Grid.vue'
-  import BaseButton from './buttons/BaseButton.vue'
+  import BaseButton from './BaseButton.vue'
 
   export default {
     name: 'gameOfLife',
