@@ -1,13 +1,29 @@
 <template>
   <div>
     <grid />
-    <base-button
-      :name="isPaused ? 'Play' : 'Pause'"
-      :click-callback="playGame"
-    />
-    <range
-      :change-callback="changeSpeed"
-    />
+    <div>
+      <base-button
+        :name="isPaused ? 'Play' : 'Pause'"
+        :click-callback="playGame"
+      />
+      <base-button
+        name="Next"
+        :click-callback="doStuff"
+      />
+      <base-button
+        name="Random"
+        :click-callback="doStuff"
+      />
+      <base-button
+        name="Clear"
+        :click-callback="doStuff"
+      />
+    </div>
+    <div>
+      <range
+        :change-callback="changeSpeed"
+      />
+    </div>
   </div>
 </template>
 
@@ -17,7 +33,7 @@
   import Range from './Range.vue'
 
   export default {
-    name: 'gameOfLife',
+    name: 'GameOfLife',
     components: {
       Grid,
       BaseButton,

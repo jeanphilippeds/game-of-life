@@ -1,4 +1,4 @@
-import gridHelper from './grid-helper'
+import {getIndex, getAliveNeighboursCount} from './grid-helper'
 
 const PhysicLaws = {}
 
@@ -7,9 +7,9 @@ PhysicLaws.tick = (iMax, jMax, aliveCellsIndexed) => {
 
   for (var i=0; i < iMax; i++) {
     for (var j=0; j < jMax; j++) {
-      const key = gridHelper.getIndex(i, j)
+      const key = getIndex(i, j)
       const isAliveCell = aliveCellsIndexed[key]
-      const aliveNeighboursCount = gridHelper.getAliveNeighboursCount(i, j)
+      const aliveNeighboursCount = getAliveNeighboursCount(i, j)
 
       newAliveCellsIndexed[key] = PhysicLaws.getState(isAliveCell, aliveNeighboursCount)
     }
