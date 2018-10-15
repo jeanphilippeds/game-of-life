@@ -15,7 +15,7 @@ export const tick = (rowsCount, columnsCount, aliveCellsIndexed) => {
     for (var j = 0; j < columnsCount; j++) {
       const key = getIndex(i, j)
       const isAliveCell = aliveCellsIndexed[key]
-      const aliveNeighboursCount = getAliveNeighboursCount(i, j)
+      const aliveNeighboursCount = getAliveNeighboursCount(i, j, aliveCellsIndexed)
 
       newAliveCellsIndexed[key] = getNextState(
         isAliveCell,
