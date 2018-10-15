@@ -12,7 +12,7 @@
       />
       <base-button
         name="Random"
-        :click-callback="doStuff"
+        :click-callback="generateRandomAliveCellsIndex"
       />
       <base-button
         name="Clear"
