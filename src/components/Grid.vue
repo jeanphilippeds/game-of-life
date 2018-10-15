@@ -20,12 +20,11 @@
     props: {
       toggleCell: Function,
       rowsCount: {
-          type: String,
+          type: Number,
           required: true
-
       },
       columnsCount: {
-          type: String,
+          type: Number,
           required: true
       }
     },

@@ -2,8 +2,8 @@
   <div>
     <grid
       :rows-count="rowsCount"
-      :columns-count="columnsCount">
-      :toggle-cell="toggleCell"
+      :columns-count="columnsCount"
+      :toggle-cell="toggleCell">
     </grid>
 
     <div>
@@ -43,7 +43,7 @@
   import Grid from './Grid.vue'
   import BaseButton from './BaseButton.vue'
   import Range from './Range.vue'
-  import { getRandomIndex } from '../services/grid-helper.js'
+  import { getRandomIndex, getIndex } from '../services/grid-helper.js'
   import { tick } from '../services/physic-laws.js'
 
   const gridRatio = 3
@@ -82,7 +82,8 @@
         this.aliveCellsIndexed = getRandomIndex(this.rowsCount, this.columnsCount);
       },
       toggleCell: function (row, column) {
-        window.console.log(row, column)
+        const index = getIndex(row, column)
+        this.aliveCellsIndexed[index] = !this.aliveCellsIndexed[index]
       }
     }
   }
