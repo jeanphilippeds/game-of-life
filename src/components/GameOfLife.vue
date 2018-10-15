@@ -42,7 +42,7 @@
   import BaseButton from './BaseButton.vue'
   import Range from './Range.vue'
   import { getRandomIndex } from '../services/grid-helper.js'
-  import { tick } from '../services/grid-helper.js'
+  import { tick } from '../services/physic-laws.js'
 
   const gridRatio = 3
 
