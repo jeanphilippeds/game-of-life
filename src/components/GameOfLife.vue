@@ -8,7 +8,7 @@
       />
       <base-button
         name="Next"
-        :click-callback="() => {}"
+        :click-callback="setNextState"
       />
       <base-button
         name="Random"
@@ -40,6 +40,7 @@
   import BaseButton from './BaseButton.vue'
   import Range from './Range.vue'
   import { getRandomIndex } from '../services/grid-helper.js'
+  import { tick } from '../services/grid-helper.js'
 
   export default {
     name: 'GameOfLife',
@@ -63,6 +64,9 @@
       },
       changeSpeed: function (value) {
         this.speed = value;
+      },
+      setNextState: function () {
+        this.aliveCellsIndexed = tick(this.rowsCount, this.columnsCount, this.aliveCellsIndexed);
       },
       generateRandomAliveCellsIndex: function () {
         this.aliveCellsIndexed = getRandomIndex(this.rowsCount, this.columnsCount);
