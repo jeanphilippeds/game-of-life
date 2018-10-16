@@ -62,7 +62,8 @@
         isPaused: true,
         speed: 0,
         aliveCellsIndexed: {},
-        rowsCount: 30
+        rowsCount: 30,
+        timer: null
       }
     },
     computed: {
@@ -73,15 +74,28 @@
     methods: {
       playGame: function () {
         this.isPaused = !this.isPaused;
+        if (!this.isPaused) {
+          this.setTimer()
+        }
+        else {
+          clearInterval(this.timer)
+        }
       },
       changeSpeed: function (value) {
         this.speed = value;
+        if (!this.isPaused) {
+          clearInterval(this.timer)
+          this.setTimer()
+        }
       },
       clearState: function () {
         this.aliveCellsIndexed = {}
       },
       setNextState: function () {
         this.aliveCellsIndexed = tick(this.rowsCount, this.columnsCount, this.aliveCellsIndexed)
+      },
+      setTimer: function () {
+        this.timer = setInterval(this.setNextState, (100 - this.speed) * 10)
       },
       generateRandomAliveCellsIndex: function () {
         this.aliveCellsIndexed = getRandomIndex(this.rowsCount, this.columnsCount)
