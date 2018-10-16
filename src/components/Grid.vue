@@ -1,11 +1,13 @@
 <template>
   <div class="grid__container" :style="`--rows:${rowsCount}; --columns:${columnsCount};`">
-    <cell
+    <div
         v-for="index in cellsCount"
         :key="index"
+        class="cell"
         :is-alive="isCellAliveFromIndex(index)"
-        :click-callback="() => handleCellClick(index)"
-    />
+        @click="handleCellClick(index)"
+    >
+    </div>
   </div>
 </template>
 
@@ -65,5 +67,12 @@
   grid-gap: 1px;
   grid-template-columns: repeat(var(--columns), 1fr);
   grid-template-rows: repeat(var(--rows), 1fr);
+}
+.cell {
+  background-color: white;
+}
+
+.cell[is-alive] {
+  background-color: black;
 }
 </style>

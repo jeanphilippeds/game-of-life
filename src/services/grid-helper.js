@@ -27,7 +27,7 @@ export const getRandomIndex = (rowsCount, columnsCount) => {
 
   for (let row = 0; row < rowsCount; row++) {
     for (let column = 0; column < columnsCount; column++) {
-      const isAlive = Math.random() >= 0.5
+      const isAlive = Math.random() >= 0.7
       if (isAlive) {
         aliveCellsIndexed[getIndex(row, column)] = true
       }

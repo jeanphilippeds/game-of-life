@@ -87,12 +87,18 @@
         this.aliveCellsIndexed = getRandomIndex(this.rowsCount, this.columnsCount)
       },
       toggleCell: function (row, column) {
-        const index = getIndex(row, column)
-        if (this.aliveCellsIndexed.hasOwnProperty(index)) {
-          delete this.aliveCellsIndexed[index]
-        } else {
-          this.aliveCellsIndexed[index] = true
+        const aliveCellsIndexedUpdated = {
+          ...this.aliveCellsIndexed,
         }
+
+        const index = getIndex(row, column)
+        if (aliveCellsIndexedUpdated[index]) {
+          delete aliveCellsIndexedUpdated[index]
+        } else {
+          aliveCellsIndexedUpdated[index] = true
+        }
+
+        this.aliveCellsIndexed = aliveCellsIndexedUpdated
       },
       isCellAlive: function (row, column) {
         return this.aliveCellsIndexed[getIndex(row, column)]
