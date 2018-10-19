@@ -38,6 +38,20 @@
         :change-callback="changeSpeed"
       />
     </div>
+    <div>
+      <span>
+        <input type="radio" value="" v-model="presetSelected" id="default" selected />
+        <label for="default">No preset</label>
+      </span>
+      <span
+        v-for="(presetObject, presetKey) in presets"
+        :key="presetKey"
+      >
+        <input type="radio" :value="presetKey" v-model="presetSelected" id="default" selected />
+        <label for="default">{{ presetObject.name }}</label>
+      </span>
+
+    </div>
   </div>
 </template>
 
@@ -45,6 +59,7 @@
   import Grid from './Grid.vue'
   import BaseButton from './BaseButton.vue'
   import Range from './Range.vue'
+  import Presets from '../services/presets.js'
   import { getRandomIndex, getIndex } from '../services/grid-helper.js'
   import { tick } from '../services/physic-laws.js'
 
@@ -63,12 +78,16 @@
         speed: 0,
         aliveCellsIndexed: {},
         rowsCount: 30,
-        timer: null
+        timer: null,
+        presetSelected: ''
       }
     },
     computed: {
       columnsCount: function() {
         return this.rowsCount * gridRatio
+      },
+      presets: function () {
+        return Presets
       }
     },
     methods: {
@@ -112,10 +131,21 @@
           aliveCellsIndexedUpdated[index] = true
         }
 
+        this.drawPattern(row, column, aliveCellsIndexedUpdated)
+
         this.aliveCellsIndexed = aliveCellsIndexedUpdated
       },
       isCellAlive: function (row, column) {
         return this.aliveCellsIndexed[getIndex(row, column)]
+      },
+      drawPattern: function (row, column, aliveCellsIndexedUpdated) {
+        if (this.presetSelected !== '') {
+          const presetPattern = this.presets[this.presetSelected].pattern
+
+          for (let patternIndex = 0; patternIndex < presetPattern.length; patternIndex++) {
+            if (presetPattern[patternIndex] === 1) aliveCellsIndexedUpdated[getIndex(row, column + patternIndex)] = true
+          }
+        }
       }
     }
   }
