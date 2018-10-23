@@ -141,9 +141,12 @@
       drawPattern: function (row, column, aliveCellsIndexedUpdated) {
         if (this.presetSelected !== '') {
           const presetPattern = this.presets[this.presetSelected].pattern
+          const presetShape = this.presets[this.presetSelected].shape
 
-          for (let patternIndex = 0; patternIndex < presetPattern.length; patternIndex++) {
-            if (presetPattern[patternIndex] === 1) aliveCellsIndexedUpdated[getIndex(row, column + patternIndex)] = true
+          for (let patternRowIndex = 0; patternRowIndex < presetShape[0]; patternRowIndex++) {
+            for (let patternColIndex = 0; patternColIndex < presetShape[1]; patternColIndex++) {
+              if (presetPattern[patternRowIndex][patternColIndex] === 1) aliveCellsIndexedUpdated[getIndex(row + patternRowIndex, column + patternColIndex)] = true
+            }
           }
         }
       }
