@@ -16,7 +16,7 @@ export default {
     smallSquare: {
         name: "Small Square",
         pattern: [
-            [1,0],
+            [1,1],
             [1,1]
         ],
         shape: [2,2]

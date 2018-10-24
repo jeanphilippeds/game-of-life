@@ -47,8 +47,8 @@
         v-for="(presetObject, presetKey) in presets"
         :key="presetKey"
       >
-        <input type="radio" :value="presetKey" v-model="presetSelected" id="default" selected />
-        <label for="default">{{ presetObject.name }}</label>
+        <input type="radio" :value="presetKey" v-model="presetSelected" :id="presetKey" selected />
+        <label :for="presetKey">{{ presetObject.name }}</label>
       </span>
 
     </div>
