@@ -4,19 +4,24 @@
       <img class="theodo-logo" alt="Theodo logo" src="./assets/theodo-logo.png">
       <img class="vue-logo" alt="Vue logo" src="./assets/vue-logo.png">
     </div>
+    <cell></cell>
   </div>
 </template>
 
 <script>
+import Cell from './components/Cell'
 
 export default {
-  name: 'GameOfLife'
+  name: 'GameOfLife',
+  components: {
+    Cell
+  }
 }
 </script>
 
 <style>
 #game-of-life {
-  padding: 40px;
+  padding: 70px 20px;
   position: relative;
 }
 .logos-container {
