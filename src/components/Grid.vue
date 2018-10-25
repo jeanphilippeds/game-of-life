@@ -1,5 +1,5 @@
 <template>
-  <div class="grid__container" :style="`--rows:${rowsCount}; --columns:${columnsCount};`">
+  <div class="grid__container" :style="`width: ${width}vw;height: ${height}vw;--rows: ${rowsCount};--columns: ${columnsCount};`">
     <div
         v-for="index in cellsCount"
         :key="index"
@@ -20,6 +20,7 @@
         Cell
     },
     props: {
+        gridRatio: Number,
         toggleCell: Function,
         rowsCount: {
             type: Number,
@@ -37,6 +38,12 @@
     computed: {
         cellsCount: function() {
             return this.rowsCount * this.columnsCount;
+        },
+        height: function () {
+            return Math.floor(90/this.gridRatio)
+        },
+        width: function () {
+            return Math.min(100, this.height*this.gridRatio)
         }
     },
     methods: {
@@ -58,8 +65,6 @@
 
 <style>
 .grid__container {
-  width: 90vw;
-  height: 30vw;
   margin: auto;
   background-color: black;
   border: black solid 1px;

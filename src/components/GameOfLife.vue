@@ -4,6 +4,7 @@
       :rows-count="rowsCount"
       :columns-count="columnsCount"
       :toggle-cell="toggleCell"
+      :grid-ratio="gridRatio"
       :is-cell-alive="isCellAlive"
     >
     </grid>
@@ -45,10 +46,10 @@
   import Grid from './Grid.vue'
   import BaseButton from './BaseButton.vue'
   import Range from './Range.vue'
-  import { getRandomIndex, getIndex } from '../services/grid-helper.js'
+  import { getRandomIndex, getIndex, getUniqueValuesFromArray } from '../services/grid-helper.js'
   import { tick } from '../services/physic-laws.js'
 
-  const gridRatio = 3
+  const gridRatio = 2
 
   export default {
     name: 'GameOfLife',
@@ -62,8 +63,10 @@
         isPaused: true,
         speed: 0,
         aliveCellsIndexed: {},
+        modifiedCells: [],
         rowsCount: 30,
-        timer: null
+        timer: null,
+        gridRatio: gridRatio
       }
     },
     computed: {
@@ -89,16 +92,20 @@
         }
       },
       clearState: function () {
-        this.aliveCellsIndexed = {}
+        this.aliveCellsIndexed = {},
+        this.modifiedCells = []
       },
       setNextState: function () {
-        this.aliveCellsIndexed = tick(this.rowsCount, this.columnsCount, this.aliveCellsIndexed)
+        const { aliveCellsIndexed, modifiedCells  } = tick(this.rowsCount, this.columnsCount, this.aliveCellsIndexed, this.modifiedCells)
+        this.aliveCellsIndexed = aliveCellsIndexed
+        this.modifiedCells = modifiedCells
       },
       setTimer: function () {
         this.timer = setInterval(this.setNextState, (100 - this.speed) * 10)
       },
       generateRandomAliveCellsIndex: function () {
         this.aliveCellsIndexed = getRandomIndex(this.rowsCount, this.columnsCount)
+        this.modifiedCells = Object.keys(this.aliveCellsIndexed)
       },
       toggleCell: function (row, column) {
         const aliveCellsIndexedUpdated = {
@@ -113,6 +120,7 @@
         }
 
         this.aliveCellsIndexed = aliveCellsIndexedUpdated
+        this.modifiedCells = getUniqueValuesFromArray([...this.modifiedCells, index])
       },
       isCellAlive: function (row, column) {
         return this.aliveCellsIndexed[getIndex(row, column)]

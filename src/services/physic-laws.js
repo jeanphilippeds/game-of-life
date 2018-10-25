@@ -1,28 +1,56 @@
-import { getIndex, getAliveNeighboursCount } from './grid-helper'
+import {
+  getIndex,
+  getAliveNeighboursCount,
+  getNeighboursFromIndex,
+  getAliveNeighboursCountFromIndex,
+  getUniqueValuesFromArray
+} from './grid-helper'
 
 const getNextState = (isAliveCell, aliveNeighboursCount) => {
-  if (isAliveCell && aliveNeighboursCount < 2) return false
-  if (isAliveCell && aliveNeighboursCount > 3) return false
+  if (isAliveCell) {
+    if (aliveNeighboursCount < 2) return false
+    if (aliveNeighboursCount > 3) return false
+    return isAliveCell
+  }
   if (!isAliveCell && aliveNeighboursCount == 3) return true
 
   return isAliveCell
 }
 
-export const tick = (rowsCount, columnsCount, aliveCellsIndexed) => {
+export const tick = (
+  rowsCount,
+  columnsCount,
+  aliveCellsIndexed,
+  modifiedCells
+) => {
   const newAliveCellsIndexed = {}
+  const newModifiedCells = []
 
-  for (var i = 0; i < rowsCount; i++) {
-    for (var j = 0; j < columnsCount; j++) {
-      const key = getIndex(i, j)
-      const isAliveCell = aliveCellsIndexed[key]
-      const aliveNeighboursCount = getAliveNeighboursCount(i, j, aliveCellsIndexed)
+  modifiedCells.forEach(modifiedCellIndex => {
+    const neighbours = [
+      ...getNeighboursFromIndex(modifiedCellIndex),
+      modifiedCellIndex
+    ]
 
-      newAliveCellsIndexed[key] = getNextState(
-        isAliveCell,
-        aliveNeighboursCount
+    neighbours.forEach(cellIndex => {
+      const isAliveCell = aliveCellsIndexed[cellIndex]
+      const aliveNeighboursCount = getAliveNeighboursCountFromIndex(
+        cellIndex,
+        aliveCellsIndexed
       )
-    }
-  }
 
-  return newAliveCellsIndexed
+      const cellNextState = getNextState(isAliveCell, aliveNeighboursCount)
+
+      newAliveCellsIndexed[cellIndex] = cellNextState
+
+      if (cellNextState !== isAliveCell) {
+        newModifiedCells.push(cellIndex)
+      }
+    })
+  })
+
+  return {
+    aliveCellsIndexed: newAliveCellsIndexed,
+    modifiedCells: getUniqueValuesFromArray(newModifiedCells)
+  }
 }
