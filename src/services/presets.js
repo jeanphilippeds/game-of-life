@@ -30,5 +30,14 @@ export default {
             [1,1,1]
         ],
         shape: [4,3]
+    },
+    glider: {
+        name: "Glider",
+        pattern: [
+            [1,1,0],
+            [1,0,1],
+            [1,0,0]
+        ],
+        shape: [3,3]
     }
 }

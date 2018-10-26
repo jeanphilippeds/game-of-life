@@ -5,6 +5,7 @@
         :key="index"
         class="cell"
         :is-alive="isCellAliveFromIndex(index)"
+        :style="{'background-color': isCellAliveFromIndex(index) ? isCellAliveFromIndex(index) :  'white'}"
         @click="handleCellClick(index)"
     >
     </div>

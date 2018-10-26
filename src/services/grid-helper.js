@@ -15,11 +15,23 @@ const getNeighbours = (row, column) => {
   ]
 }
 
-export const getAliveNeighboursCount = (row, column, aliveCellsIndexed) => {
-  const neighbours = getNeighbours(row, column)
+const getAliveNeighbours = (row, column, aliveCellsIndexed) => {
+  return getNeighbours(row, column).filter(neighbourIndex => aliveCellsIndexed[neighbourIndex])
+}
 
-  return neighbours.filter(neighbourIndex => aliveCellsIndexed[neighbourIndex])
-    .length
+export const getAliveNeighboursCount = (row, column, aliveCellsIndexed) => {
+  return getAliveNeighbours(row, column, aliveCellsIndexed).length
+}
+
+export const getMainNeighbourColour = (row, column, aliveCellsIndexed) => {
+  const aliveNeighbours = getAliveNeighbours(row, column, aliveCellsIndexed)
+
+  let redCount = 0
+  aliveNeighbours.forEach(currentIndex => {
+    if (aliveCellsIndexed[currentIndex] == 'red') redCount++
+  })
+
+  return redCount > 1 ? 'red' : 'green'
 }
 
 export const getRandomIndex = (rowsCount, columnsCount) => {
@@ -28,8 +40,9 @@ export const getRandomIndex = (rowsCount, columnsCount) => {
   for (let row = 0; row < rowsCount; row++) {
     for (let column = 0; column < columnsCount; column++) {
       const isAlive = Math.random() >= 0.7
+      const isRed = Math.random() >= 0.5 ? 'red' : 'green'
       if (isAlive) {
-        aliveCellsIndexed[getIndex(row, column)] = true
+        aliveCellsIndexed[getIndex(row, column)] = isRed
       }
     }
   }
