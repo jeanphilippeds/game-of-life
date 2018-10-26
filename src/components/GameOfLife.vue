@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div>
+      <span class="red-count">{{ redCount() }}</span>
+      <span class="green-count">{{ greenCount() }}</span>
+    </div>
     <grid
       :rows-count="rowsCount"
       :columns-count="columnsCount"
@@ -98,9 +102,15 @@
       },
       presets: function () {
         return Presets
-      }
+      },
     },
     methods: {
+      redCount: function() {
+        return Object.values(this.aliveCellsIndexed).filter(element => element === 'red').length
+      },
+      greenCount: function() {
+        return Object.values(this.aliveCellsIndexed).filter(element => element === 'green').length
+      },
       playGame: function () {
         this.isPaused = !this.isPaused;
         if (!this.isPaused) {
@@ -164,8 +174,18 @@
   }
 </script>
 
-<style>
+<style scoped>
 .rows-count {
   width: 100px;
+}
+.red-count {
+  font-size: 25px;
+  color: red;
+  padding: 5px;
+}
+.green-count {
+  font-size: 25px;
+  color: green;
+  padding: 5px;
 }
 </style>
