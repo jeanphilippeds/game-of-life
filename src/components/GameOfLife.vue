@@ -50,7 +50,16 @@
         <input type="radio" :value="presetKey" v-model="presetSelected" :id="presetKey" selected />
         <label :for="presetKey">{{ presetObject.name }}</label>
       </span>
-
+    </div>
+    <div>
+      <span>
+        <input type="radio" value="red" v-model="paintColour" id="red" selected />
+        <label for="default" style="color:red;">Red</label>
+      </span>
+      <span>
+        <input type="radio" value="green" v-model="paintColour" id="green" selected />
+        <label for="default" style="color:green;">Green</label>
+      </span>
     </div>
   </div>
 </template>
@@ -79,7 +88,8 @@
         aliveCellsIndexed: {},
         rowsCount: 30,
         timer: null,
-        presetSelected: ''
+        presetSelected: '',
+        paintColour: 'red'
       }
     },
     computed: {
@@ -128,7 +138,7 @@
         if (aliveCellsIndexedUpdated[index]) {
           delete aliveCellsIndexedUpdated[index]
         } else {
-          aliveCellsIndexedUpdated[index] = true
+          aliveCellsIndexedUpdated[index] = this.paintColour
         }
 
         this.drawPattern(row, column, aliveCellsIndexedUpdated)
@@ -145,7 +155,7 @@
 
           for (let patternRowIndex = 0; patternRowIndex < presetShape[0]; patternRowIndex++) {
             for (let patternColIndex = 0; patternColIndex < presetShape[1]; patternColIndex++) {
-              if (presetPattern[patternRowIndex][patternColIndex] === 1) aliveCellsIndexedUpdated[getIndex(row + patternRowIndex, column + patternColIndex)] = true
+              if (presetPattern[patternRowIndex][patternColIndex] === 1) aliveCellsIndexedUpdated[getIndex(row + patternRowIndex, column + patternColIndex)] = this.paintColour
             }
           }
         }
