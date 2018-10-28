@@ -4,7 +4,7 @@
       <img class="theodo-logo" alt="Theodo logo" src="./assets/theodo-logo.png">
       <img class="vue-logo" alt="Vue logo" src="./assets/vue-logo.png">
     </div>
-    <cell></cell>
+    <cell welcoming-message="Hello I'm a Cell :)"></cell>
   </div>
 </template>
 
