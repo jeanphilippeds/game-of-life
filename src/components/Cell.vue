@@ -16,9 +16,7 @@
 
 <style>
 .cell {
-  height: 10px;
-  width: 10px;
-  border: 1px solid black;
+  background-color: white;
 }
 .alive {
   background-color: black;

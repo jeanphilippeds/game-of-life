@@ -4,18 +4,30 @@
       <img class="theodo-logo" alt="Theodo logo" src="./assets/theodo-logo.png">
       <img class="vue-logo" alt="Vue logo" src="./assets/vue-logo.png">
     </div>
-    <cell :is-alive="true"></cell>
-    <cell :is-alive="false"></cell>
+    <grid :rows-count="rowsCount" :columns-count="columnsCount"></grid>
   </div>
 </template>
 
 <script>
-import Cell from './components/Cell'
+import Grid from './components/Grid'
+
+const rowsCount = 30
 
 export default {
   name: 'GameOfLife',
   components: {
-    Cell
+    Grid
+  },
+  data: function () {
+    return {
+      rowsCount: rowsCount
+    }
+  },
+  computed: {
+    columnsCount: function() {
+      const ratio = 3
+      return rowsCount * ratio
+    }
   }
 }
 </script>
