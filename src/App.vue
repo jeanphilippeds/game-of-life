@@ -4,7 +4,12 @@
       <img class="theodo-logo" alt="Theodo logo" src="./assets/theodo-logo.png">
       <img class="vue-logo" alt="Vue logo" src="./assets/vue-logo.png">
     </div>
-    <grid :rows-count="rowsCount" :columns-count="columnsCount"></grid>
+    <grid
+      :rows-count="rowsCount"
+      :columns-count="columnsCount"
+      :alive-cells-map="aliveCellsMap"
+    >
+    </grid>
   </div>
 </template>
 
@@ -20,7 +25,14 @@ export default {
   },
   data: function () {
     return {
-      rowsCount: rowsCount
+      rowsCount: rowsCount,
+      aliveCellsMap: {
+        R24C55: true,
+        R12C24: true,
+        R22C18: true,
+        R7C25: true,
+        R11C76: true,
+      }
     }
   },
   computed: {

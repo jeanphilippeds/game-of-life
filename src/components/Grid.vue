@@ -3,7 +3,7 @@
     <cell
         v-for="index in cellsCount"
         :key="index"
-        :is-alive="false"
+        :is-alive="isCellAlive(index)"
     >
     </cell>
   </div>
@@ -11,6 +11,7 @@
 
 <script>
   import Cell from './Cell.vue'
+  import { getCellIdFromIndex } from '../services/grid-helper.js'
 
   export default {
     name: 'Grid',
@@ -25,6 +26,9 @@
         columnsCount: {
             type: Number,
             required: true
+        },
+        aliveCellsMap: {
+            type: Object,
         }
     },
     computed: {
@@ -32,6 +36,12 @@
             return this.rowsCount * this.columnsCount;
         }
     },
+    methods: {
+        isCellAlive: function (cellIndex) {
+            const cellId = getCellIdFromIndex(cellIndex, this.columnsCount)
+            return this.aliveCellsMap[cellId]
+        }
+    }
   }
 </script>
 
