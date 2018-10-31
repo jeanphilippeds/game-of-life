@@ -4,6 +4,7 @@
         v-for="index in cellsCount"
         :key="index"
         :is-alive="isCellAlive(index)"
+        @click.native="toggleCellState(index)"
     >
     </cell>
   </div>
@@ -29,6 +30,9 @@
         },
         aliveCellsMap: {
             type: Object,
+        },
+        toggleCellStateCallback: {
+            type: Function
         }
     },
     computed: {
@@ -40,6 +44,10 @@
         isCellAlive: function (cellIndex) {
             const cellId = getCellIdFromIndex(cellIndex, this.columnsCount)
             return this.aliveCellsMap[cellId]
+        },
+        toggleCellState: function (cellIndex) {
+            const cellId = getCellIdFromIndex(cellIndex, this.columnsCount)
+            this.toggleCellStateCallback(cellId)
         }
     }
   }

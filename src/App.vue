@@ -8,6 +8,7 @@
       :rows-count="rowsCount"
       :columns-count="columnsCount"
       :alive-cells-map="aliveCellsMap"
+      :toggle-cell-state-callback="toggleCellState"
     >
     </grid>
     <div class="buttons-container">
@@ -42,6 +43,16 @@ export default {
   methods: {
     randomizeMap: function () {
       this.aliveCellsMap = getRandomizedMap(this.rowsCount, this.columnsCount)
+    },
+    toggleCellState: function (cellId) {
+      const newAliveCellsMap = { ...this.aliveCellsMap }
+      if (newAliveCellsMap[cellId]) {
+        delete newAliveCellsMap[cellId]
+      } else {
+        newAliveCellsMap[cellId] = true
+      }
+
+      this.aliveCellsMap = newAliveCellsMap
     }
   }
 }

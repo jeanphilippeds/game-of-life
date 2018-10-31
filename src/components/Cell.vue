@@ -1,5 +1,8 @@
 <template>
-  <div class="cell" :class="{ alive: isAlive }"></div>
+  <div
+    class="cell"
+    :class="{ alive: isAlive }"
+  ></div>
 </template>
 
 <script>
