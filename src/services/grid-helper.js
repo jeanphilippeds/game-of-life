@@ -8,3 +8,17 @@ export const getCellIdFromIndex = function(cellIndex, columnsCount) {
 export const getCellId = function(row, column) {
   return `R${row}C${column}`
 }
+
+export const getRandomizedMap = (rowsCount, columnsCount) => {
+  const aliveCellsMap = {}
+
+  for (let row = 0; row < rowsCount; row++) {
+    for (let column = 0; column < columnsCount; column++) {
+      const isAlive = Math.random() >= 0.7
+      if (isAlive) {
+        aliveCellsMap[getCellId(row, column)] = true
+      }
+    }
+  }
+  return aliveCellsMap
+}
