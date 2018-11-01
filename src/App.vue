@@ -14,6 +14,7 @@
     <div class="buttons-container">
       <button @click="randomizeMap()">Random</button>
       <button @click="updateALiveCellsMap()">Next</button>
+      <button @click="togglePlayMode()" v-html="playModeButton"></button>
       <button @click="clearMap()">Clear</button>
     </div>
   </div>
@@ -34,13 +35,17 @@ export default {
   data: function () {
     return {
       rowsCount: rowsCount,
-      aliveCellsMap: {}
+      aliveCellsMap: {},
+      iterationsTimer: null
     }
   },
   computed: {
     columnsCount: function() {
       const ratio = 3
       return rowsCount * ratio
+    },
+    playModeButton: function () {
+      return this.iterationsTimer?'&#10074&#10074':'&#x25b6'
     }
   },
   methods: {
@@ -49,6 +54,13 @@ export default {
     },
     updateALiveCellsMap: function () {
       this.aliveCellsMap = getNextMap(this.rowsCount, this.columnsCount, this.aliveCellsMap)
+    },
+    togglePlayMode: function () {
+      if (this.iterationsTimer) {
+        clearInterval(this.iterationsTimer)
+        return this.iterationsTimer = null
+      }
+      this.iterationsTimer = setInterval(this.updateALiveCellsMap, 300)
     },
     clearMap: function () {
       this.aliveCellsMap = {}
