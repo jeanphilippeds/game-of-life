@@ -14,6 +14,7 @@
     <div class="buttons-container">
       <button @click="randomizeMap()">Random</button>
       <button @click="updateALiveCellsMap()">Next</button>
+      <button @click="clearMap()">Clear</button>
     </div>
   </div>
 </template>
@@ -48,6 +49,9 @@ export default {
     },
     updateALiveCellsMap: function () {
       this.aliveCellsMap = getNextMap(this.rowsCount, this.columnsCount, this.aliveCellsMap)
+    },
+    clearMap: function () {
+      this.aliveCellsMap = {}
     },
     toggleCellState: function (cellId) {
       const newAliveCellsMap = { ...this.aliveCellsMap }
