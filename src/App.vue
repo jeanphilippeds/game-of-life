@@ -13,6 +13,7 @@
     </grid>
     <div class="buttons-container">
       <button @click="randomizeMap()">Random</button>
+      <button @click="updateALiveCellsMap()">Next</button>
     </div>
   </div>
 </template>
@@ -20,6 +21,7 @@
 <script>
 import Grid from './components/Grid'
 import { getRandomizedMap } from './services/grid-helper.js'
+import { getNextMap } from './services/conway-rules.js'
 
 const rowsCount = 30
 
@@ -43,6 +45,9 @@ export default {
   methods: {
     randomizeMap: function () {
       this.aliveCellsMap = getRandomizedMap(this.rowsCount, this.columnsCount)
+    },
+    updateALiveCellsMap: function () {
+      this.aliveCellsMap = getNextMap(this.rowsCount, this.columnsCount, this.aliveCellsMap)
     },
     toggleCellState: function (cellId) {
       const newAliveCellsMap = { ...this.aliveCellsMap }
@@ -79,5 +84,8 @@ export default {
   padding: 5px 10px;
   border-radius: 5px;
   background-color: rgba(220, 220, 220, 0.5);
+}
+.buttons-container button + button {
+  margin-left: 10px;
 }
 </style>
