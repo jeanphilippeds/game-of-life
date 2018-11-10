@@ -17,13 +17,28 @@
       <button @click="togglePlayMode()" v-html="playModeButton"></button>
       <button @click="clearMap()">Clear</button>
     </div>
+    <div>
+      <span class="preset">
+        <input type="radio" value="" v-model="presetSelected" id="default" selected />
+        <label for="default">No preset</label>
+      </span>
+      <span
+        v-for="(presetObject, presetKey) in presets"
+        :key="presetKey"
+        class="preset"
+      >
+        <input type="radio" :value="presetKey" v-model="presetSelected" :id="presetKey" selected />
+        <label :for="presetKey">{{ presetObject.name }}</label>
+      </span>
+    </div>
   </div>
 </template>
 
 <script>
 import Grid from './components/Grid'
-import { getRandomizedMap } from './services/grid-helper.js'
+import { getRandomizedMap, getCoordinatesFromCellId, getCellId } from './services/grid-helper.js'
 import { getNextMap } from './services/conway-rules.js'
+import Presets from './services/presets.js'
 
 const rowsCount = 30
 
@@ -36,7 +51,8 @@ export default {
     return {
       rowsCount: rowsCount,
       aliveCellsMap: {},
-      iterationsTimer: null
+      iterationsTimer: null,
+      presetSelected: ''
     }
   },
   computed: {
@@ -46,6 +62,9 @@ export default {
     },
     playModeButton: function () {
       return this.iterationsTimer?'&#10074&#10074':'&#x25b6'
+    },
+    presets: function () {
+      return Presets
     }
   },
   methods: {
@@ -73,7 +92,21 @@ export default {
         newAliveCellsMap[cellId] = true
       }
 
+      if (this.presetSelected !== '') {
+        this.drawPattern(cellId, newAliveCellsMap)
+      }
       this.aliveCellsMap = newAliveCellsMap
+    },
+    drawPattern: function (cellId, newAliveCellsMap) {
+      const [row, column] = getCoordinatesFromCellId(cellId)
+      const presetPattern = this.presets[this.presetSelected].pattern
+      const presetShape = this.presets[this.presetSelected].shape
+
+      for (let patternRowIndex = 0; patternRowIndex < presetShape[0]; patternRowIndex++) {
+        for (let patternColIndex = 0; patternColIndex < presetShape[1]; patternColIndex++) {
+          if (presetPattern[patternRowIndex][patternColIndex] === 1) newAliveCellsMap[getCellId(row + patternRowIndex, column + patternColIndex)] = true
+        }
+      }
     }
   }
 }
@@ -103,5 +136,9 @@ export default {
 }
 .buttons-container button + button {
   margin-left: 10px;
+}
+.preset {
+  margin: 10px;
+  font-family: sans-serif;
 }
 </style>

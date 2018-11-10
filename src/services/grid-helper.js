@@ -9,6 +9,13 @@ export const getCellId = function(row, column) {
   return `R${row}C${column}`
 }
 
+export const getCoordinatesFromCellId = function (cellId) {
+  const [rowString, columnIndex] = cellId.split('C') // ['R12', '24]
+  const rowIndex = rowString.substring(1)
+
+  return [parseInt(rowIndex), parseInt(columnIndex)]
+}
+
 export const getRandomizedMap = (rowsCount, columnsCount) => {
   const aliveCellsMap = {}
 
