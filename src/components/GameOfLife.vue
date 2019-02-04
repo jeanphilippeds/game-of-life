@@ -103,6 +103,12 @@
       presets: function () {
         return Presets
       },
+      hasSelectedPreset: function() {
+        return this.presetSelected !== ''
+      },
+      isRedSelected: function() {
+        return this.paintColour === 'red'
+      }
     },
     methods: {
       redCount: function() {
@@ -145,13 +151,16 @@
         }
 
         const index = getIndex(row, column)
-        if (aliveCellsIndexedUpdated[index]) {
-          delete aliveCellsIndexedUpdated[index]
-        } else {
-          aliveCellsIndexedUpdated[index] = this.paintColour
-        }
 
-        this.drawPattern(row, column, aliveCellsIndexedUpdated)
+        if (this.hasSelectedPreset) {
+           this.drawPattern(row, column, aliveCellsIndexedUpdated)
+        } else {
+          if (aliveCellsIndexedUpdated[index]) {
+            delete aliveCellsIndexedUpdated[index]
+          } else {
+            aliveCellsIndexedUpdated[index] = this.paintColour
+          }
+        }
 
         this.aliveCellsIndexed = aliveCellsIndexedUpdated
       },

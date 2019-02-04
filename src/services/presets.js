@@ -39,5 +39,15 @@ export default {
             [1,0,0]
         ],
         shape: [3,3]
+    },
+    spaceship: {
+        name: 'Spaceship',
+        pattern: [
+            [0,1,1,0,0,0],
+            [1,1,0,1,1,1],
+            [0,1,1,1,1,1],
+            [0,0,1,1,1,0]
+        ],
+        shape: [4,6]
     }
 }
